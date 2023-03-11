@@ -1,4 +1,4 @@
-package tweet;
+package types;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -15,6 +15,7 @@ public class Tweet implements Comparable<Tweet>{
 	private Double rating;
 	private Boolean hasName;
 	private dogFame fame;
+	private List<> ;
 	
 	public Tweet(Integer id, Integer favs, Integer rts, LocalDateTime datetime, String text, String url, String name, Double rating) {
 		Checkers.check("Incompatible ID",id == 0);
