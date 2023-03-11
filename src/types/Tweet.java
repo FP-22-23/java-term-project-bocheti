@@ -1,52 +1,43 @@
 package types;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Objects;
 import utils.Checkers;
 
 public class Tweet implements Comparable<Tweet>{
-	private Integer id;
 	private Integer favs;
 	private Integer rts;
 	private LocalDateTime datetime;
-	private String text;
-	private String url;
 	private String name;
 	private Double rating;
-	private Boolean hasName;
-	private dogFame fame;
-	private List<> ;
+	private Id id;
+	private ArrayList<String> wordlist;
 	
-	public Tweet(Integer id, Integer favs, Integer rts, LocalDateTime datetime, String text, String url, String name, Double rating) {
-		Checkers.check("Incompatible ID",id == 0);
+	// derived: hasName, fame, 
+	
+	public Tweet(Id id, Integer favs, Integer rts, LocalDateTime datetime, String name, Double rating, ArrayList<String> wordlist) {
+		Checkers.check("id can't be null",id != null);
 		this.id = id;
 		this.favs = favs;
 		this.rts = rts;
 		this.datetime = datetime;
-		Checkers.check("Text can't be blank",text != "");
-		this.text = text;
-		this.url = url;
 		this.name = name;
+		Checkers.check("rating can't be negative", rating >= 0);
 		this.rating = rating;
+		this.wordlist = wordlist;
 	}
 
-	public Tweet(Integer id, Integer favs, Integer rts, LocalDateTime datetime, Double rating) {
-		Checkers.check("Incompatible ID",id == 0);
+	public Tweet(Id id, Integer favs, Integer rts, LocalDateTime datetime, Double rating) {
+		Checkers.check("id can't be null",id != null);
 		this.id = id;
 		this.favs = favs;
-		this.text = "New dog, rating = " + String.valueOf(rating);
 		this.rts = rts;
 		this.datetime = datetime;
+		this.name = "";
+		Checkers.check("rating can't be negative", rating >= 0);
 		this.rating = rating;
-	}
-	
-	
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
+		this.wordlist = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -57,7 +48,7 @@ public class Tweet implements Comparable<Tweet>{
 		this.name = name;
 	}
 
-	public Integer getId() {
+	public Id getId() {
 		return id;
 	}
 
@@ -72,10 +63,15 @@ public class Tweet implements Comparable<Tweet>{
 	public LocalDateTime getDatetime() {
 		return datetime;
 	}
-
-	public String getUrl() {
-		return url;
+	
+	public ArrayList<String> getWordlist(){
+		return wordlist;
 	}
+	
+	public void addWord(String s) {
+		wordlist.add(s);
+	}
+
 
 	public dogFame getFame() {
 		if (rts >= 5377) { //top 200
@@ -106,7 +102,7 @@ public class Tweet implements Comparable<Tweet>{
 
 	
 	public int hashCode() {
-		return Objects.hash(datetime, id, url);
+		return Objects.hash(datetime, id);
 	}
 	
 	public boolean equals(Object obj) {
@@ -117,8 +113,7 @@ public class Tweet implements Comparable<Tweet>{
 		if (getClass() != obj.getClass())
 			return false;
 		Tweet other = (Tweet) obj;
-		return Objects.equals(datetime, other.datetime) && Objects.equals(id, other.id)
-				&& Objects.equals(url, other.url);
+		return Objects.equals(datetime, other.datetime) && Objects.equals(id, other.id);
 	}
 	
 	public int compareTo(Tweet t) {
@@ -126,15 +121,12 @@ public class Tweet implements Comparable<Tweet>{
 		if (res == 0) {
 			res = this.getId().compareTo(t.getId());
 		}
-		if (res == 0) {
-			res = this.getUrl().compareTo(t.getUrl());
-		}
 		return res;
 	}
 
 	
 	public String toString() {
-		return "Tweet [id=" + id + ", favs=" + favs + ", rts=" + rts + ", datetime=" + datetime + ", text=" + text + ", url=" + url + ", name=" + name + ", rating=" + rating + "]";
+		return "Tweet [id=" + id + ", favs=" + favs + ", rts=" + rts + ", datetime=" + datetime + ", name=" + name + ", rating=" + rating + "]";
 	}
 
 }
