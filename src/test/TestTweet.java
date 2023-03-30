@@ -24,6 +24,7 @@ public class TestTweet {
 		System.out.println(t1.getName());
 		t1.addWord("Pup");
 		System.out.println(t1.getWordlist());
+		System.out.println(t1);
 		
 	}
 

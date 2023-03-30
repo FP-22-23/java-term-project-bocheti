@@ -126,7 +126,7 @@ public class Tweet implements Comparable<Tweet>{
 
 	
 	public String toString() {
-		return "Tweet [id=" + id + ", favs=" + favs + ", rts=" + rts + ", datetime=" + datetime + ", name=" + name + ", rating=" + rating + "]";
+		return "Tweet [id=" + id + ", favs=" + favs + ", rts=" + rts + ", datetime=" + datetime + ", name=" + name + ", rating=" + rating + ", wordlist:" + wordlist + "]";
 	}
 
 }
