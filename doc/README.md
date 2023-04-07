@@ -47,16 +47,17 @@ Each dataset row collects information about a different one between the two thou
         - *Tweets read(String fileName)*: Reads a csv file and, using the parseLine method, transforms it into a Tweets object.
 
     - Created the container type Tweets, with the following methods:
-        - Constructors *Tweets(Stream<Tweet>)* and *Tweets()*: Create new Tweets object (one with the stream as the content of the attribute tweets, which is a list of tweets, the other one with its tweets attribute as an empty list)
+        - Constructors *Tweets(List<Tweet>)* and *Tweets()*: Create new Tweets object (one with a list of tweets, the other one with its tweets attribute as an empty list).
+        - *String toString():* Returns a String that shows the contents of the List<Tweet> tweets attribute of a Tweets object (mainly implemented to simplify testing).
         - *Integer getNumberTweets()*: Returns the number of Tweet objects the Tweets object contains.
         - *void addTweet(Tweet t)*: Adds a given Tweet object to the Tweets object.
         - *void addAllTweets(List<Tweet> tweetlist)*: Adds all Tweets from the given parameter Tweet list tweetlist to the Tweets object. 
         - *void deleteTweet(Tweet t)* and *void deleteTweet(int i)*: Deletes a Tweet object from the Tweets object (one deletes a certain parameter object, the other one deletes the object whose index is the parameter given )
         - *Boolean checkName(String name)*: Returns true if the parameter string name is equal to the attribute name of any of the Tweet objects of the Tweets object.
         - *Double averageLikesPerName(String name)*: Returns the average number of likes the Tweet objects whose attribute name is equal to the parameter gets (if no Tweet object has that name, returns 0).
-        - **
+        - *Tweets tweetsInADay(LocalDate day)*: Returns a Tweets object that contains all Tweet object from the csv whose date (obtained with its datetime attribute) coincides with a LocalDate given as a parameter.
         - *Map<String,List<Tweet>> tweetsPerName()*: Returns a Map in which the keys are the names of the dogs, and the values are a list of the Tweet object whose attribute name coincides with each key.
-        - **:
+        - *Map<dogFame,Integer> tweetsPerFame()*: Returns a Map in which the keys are the five different "types of fame" that the enum type dogFame accepts (in natural order), and the value is the amount of Tweet objects whose (derived) dogFame attribute coincide with each key.
 
     - Created the test class *TestTweets* , in which all methods perfomring sequential treatments were tested
     

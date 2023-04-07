@@ -85,8 +85,6 @@ public class Tweets {
 			return new Tweets(res);
 		}
 		
-		
-		
 		//d) returns Map<String(name),List<Tweet>>
 		
 		public Map<String,List<Tweet>> tweetsPerName(){
