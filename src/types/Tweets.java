@@ -1,5 +1,6 @@
 package types;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,21 +8,23 @@ import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Tweets {
 		
 		private List<Tweet> tweets;
 		
-		public Tweets(Stream<Tweet> st) {
-			tweets = st.collect(Collectors.toList());
+		public Tweets(List<Tweet> l) {
+			tweets = new ArrayList<Tweet>(l);
 		}
 		
 		public Tweets() {
 			tweets = new ArrayList<Tweet>();
 		}
 		
+		public String toString() {
+			return "Tweets [tweets=" + tweets + "]";
+		}
+
 		public Integer getNumberTweets() {
 			return tweets.size();
 		}
@@ -70,7 +73,17 @@ public class Tweets {
 			return sum/cont;
 		}
 		
-		//c)
+		//c) returns Tweets filtered by Date
+		
+		public Tweets tweetsInADay(LocalDate day) {
+			List<Tweet> res = new ArrayList<Tweet>();
+			for(Tweet i:tweets) {
+				if(i.getDatetime().toLocalDate().equals(day)) {
+					res.add(i);
+				}
+			}
+			return new Tweets(res);
+		}
 		
 		
 		
@@ -94,7 +107,25 @@ public class Tweets {
 			return res;
 		}
 		
-		//e) returns Map<>
+		//e) returns Map<dogFame,Integer>
+		
+		public Map<dogFame,Integer> tweetsPerFame(){
+			SortedMap<dogFame,Integer> res = new TreeMap<dogFame,Integer>();
+			SortedSet<dogFame> fameset = new TreeSet<dogFame>();
+			for (Tweet i:tweets) {
+				fameset.add(i.getFame());
+			}
+			for(dogFame fame:fameset) {
+				List<Tweet> tweetlist = new ArrayList<Tweet>();
+				for(Tweet i:tweets) {
+					if(i.getFame().equals(fame)) {
+						tweetlist.add(i);
+					}
+				}
+			res.put(fame, tweetlist.size());
+			}
+			return res;
+		}
 		
 		
 		

@@ -74,16 +74,16 @@ public class Tweet implements Comparable<Tweet>{
 
 
 	public dogFame getFame() {
-		if (rts >= 5377) { //top 200
+		if (rts >= 12500) { // ~=top 50
 			return dogFame.VERY_HIGH;
 		}
-		else if (rts >= 2722) { //top 500
+		else if (rts >= 4000) { // ~=top 300
 			return dogFame.HIGH;
 		}
-		else if (rts >= 1139) { //top 1000
+		else if (rts >= 1139) { // ~=top 1000
 			return dogFame.MEDIUM;
 		}
-		else if (rts >= 518) { // top 1500
+		else if (rts >= 518) { // ~=top 1500
 			return dogFame.LOW;
 		}
 		else {

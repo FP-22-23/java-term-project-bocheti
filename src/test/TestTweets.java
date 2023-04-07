@@ -1,5 +1,6 @@
 package test;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +20,9 @@ public class TestTweets {
 		testCheckName("Phineas");
 		testAverageLikesByName("Phineas");
 		testAverageLikesByName("None");
-		testTweetsPerName();
-		
+		//testTweetsPerName();
+		testTweetsPerFame();
+		testTweetsInADay(LocalDate.of(2016, 06, 25));
 		
 	}
 	
@@ -38,7 +40,15 @@ public class TestTweets {
 	
 	private static void testTweetsPerName(){
 		System.out.println(tweets.tweetsPerName());
-		
 	}
+	
+	private static void testTweetsPerFame() {
+		System.out.println(tweets.tweetsPerFame());
+	}
+	
+	private static void testTweetsInADay(LocalDate d) {
+		System.out.println(tweets.tweetsInADay(d));
+	}
+	
 
 }

@@ -18,7 +18,7 @@ public class TweetFactory {
 		Tweets tweets = null;
 		
 		try {
-			Stream<Tweet> tws = Files.lines(Paths.get(fileName)).skip(1).map(TweetFactory::parseLine);
+			List<Tweet> tws = Files.lines(Paths.get(fileName)).skip(1).map(TweetFactory::parseLine).toList();
 			tweets = new Tweets(tws);
 		}catch(IOException e){
 			System.out.println("Error with the file" + fileName);
