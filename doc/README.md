@@ -22,14 +22,13 @@ This proyect is intended to analize the data about tweets that the user WeRateDo
 ### Structure of the dataset
 
 Each dataset row collects information about a different one between the two thousand total ones. The 8 different characteristics given are the following ones:
-- **tweet_id**: Integer number that identifies the tweet
-- **favorite_count**: Integer number of favs the tweet got
-- **retweet_count**: Integer number of retweets the tweet got
-- **timestamp**: Date and hour of the moment the tweet was posted
-- **text**: Text in the tweet in itself
-- **expanded_urls**: Expanded URL link of the tweet
-- **name**: Name of the dog the tweet is talking about (if it is not specified, = None)
-- **rating_score**: Rating given to the dog out of 1 (normally more than 1)
+- **Id id**: Auxiliary type composed of an Integer id, that identifies the tweet, and a String url, which is the expanded link to the tweet
+- **Integer favorite_count**: Integer number of favs the tweet got
+- **Integer retweet_count**: Integer number of retweets the tweet got
+- **LocalDateTime timestamp**: Date and hour of the moment the tweet was posted
+- **String text**: Text in the tweet in itself
+- **String name**: Name of the dog the tweet is talking about (if it is not specified, = None)
+- **Double rating_score**: Rating given to the dog out of 1 (normally more than 1)
 
 ### Deliveries
 
