@@ -84,7 +84,7 @@ public class TestTweets {
 	
 	private static void testNameList() {
 		System.out.println("These are all of the names in the dataset: " + tweets.nameList());
-	}
+	} 
 	
 	
 	
