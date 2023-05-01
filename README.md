@@ -40,6 +40,7 @@ Each dataset row collects information about a different one between the two thou
     - **utils package**:  Added the Checkers class in order to apply constraints to the constructors
 
 
+
 - **Delivery 2**:
     - Created factory with the following methods:
         - *Tweet parseLine(String line)*: Reads a String, which is a line of the csv file, and generates from it a Tweet object.
@@ -59,4 +60,18 @@ Each dataset row collects information about a different one between the two thou
         - *Map<dogFame,Integer> tweetsPerFame()*: Returns a Map in which the keys are the five different "types of fame" that the enum type dogFame accepts (in natural order), and the value is the amount of Tweet objects whose (derived) dogFame attribute coincide with each key.
 
     - Created the test class *TestTweets* , in which all methods perfomring sequential treatments were tested
+
+
+
+- **Delivery 3**:
+    - Added a constructor for the container type Tweets, Tweets(Stream<Tweets>), which creates a container type Tweets from a Stream object that carries Tweet objects.
+    - Modified the factory, including the method List<Tweet> readTweets_toList(String fileName), which first creates a list of tweets, and then modifying the Tweets readTweets(String fileName) method, so now all that it does is creating a Tweets object from the List<Tweet> object that the previous method outputs.
+    - Added the following methods:
+        - Methods Boolean checkName_stream(String name), Double averageLikesByName_stream(String name), Tweets tweetsInADay_stream(LocalDate day) and Map<dogFame,Long> tweetsPerFame_stream() (values of the map are of long type because that is what the Collectors.counting() method returns) all do exactly the same as the methods with same name except the _stream, which were added in the previous delivery, but have been implemented with streams.
+        - Tweet maxNumberOfWords(): returns the tweet with the greatest number of individual words (not necessarily unique).
+        - Tweets tweetsPerYearByLikes(Integer year): returns a Tweets object with all tweets tweeted in the year given as a parameter, sorted by their amount of likes. 
+        - SortedSet<String> nameList(): returns a set with all the names in the dataset, sorted alphabetically.
+
+
+
     
