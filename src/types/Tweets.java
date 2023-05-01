@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -134,7 +131,7 @@ public class Tweets {
 			}
 			return res;
 		}
-		
+	
 		
 		
 		
@@ -178,7 +175,7 @@ public class Tweets {
 		//6 method 5 delivery 2 (with streams)
 		
 		public Map<dogFame,Long> tweetsPerFame_stream() {
-			return tweets.stream().collect(Collectors.groupingBy(x->x.getFame(),Collectors.counting()));
+			return new TreeMap<>(tweets.stream().collect(Collectors.groupingBy(x->x.getFame(),Collectors.counting())));
 		}
 		
 		//7 mapping
@@ -189,9 +186,44 @@ public class Tweets {
 		
 		//8 map using max
 		
-		//public Map<String,List<Tweet>> mostLikedTweetPerName() {
-			
-		//} 
+		public Map<String,Tweet> mostRTdTweetPerName() {
+			Map<String,List<Tweet>> map = tweets.stream().filter(x -> x.getHasName()).collect(Collectors.groupingBy(x->x.getName()));
+			Map<String,Tweet> res = new TreeMap<>();
+			for (String name:map.keySet()) {
+				res.put(name,map.get(name).stream().max(Comparator.comparing(x -> x.getRts())).orElse(null));
+			}
+			return res;
+		} 
+		
+		//9 sortedMap 
+		
+		public SortedMap<Integer,List<Tweet>> nBestRatingPerYear(Integer n) {
+			Map<Integer,List<Tweet>> map = tweets.stream().collect(Collectors.groupingBy(x->Integer.valueOf(x.getDatetime().getYear())));
+			SortedMap<Integer,List<Tweet>> res = new TreeMap<>();
+			for (Integer y:map.keySet()) {
+				res.put(y,map.get(y).stream().sorted(Comparator.comparing(x -> x.getRating())).toList().subList(0, n));
+			}
+			return res;
+		} 
+		
+		//10 lowest from map
+		
+		public Id lowestRatedTweetId() {
+			Map<Id,List<Tweet>> map = tweets.stream().filter(x -> x.getHasName()).collect(Collectors.groupingBy(x->x.getId()));
+			Map<Id,Tweet> map2 = new TreeMap<>();
+			for (Id id:map.keySet()) {
+				map2.put(id,map.get(id).stream().min(Comparator.comparing(x -> x.getRating())).orElse(null));
+			}
+			//Tweet tw = map2.values().stream().min(Comparator.comparing(x -> x.getRating())).get();
+			return map2.keySet().stream().filter(x -> x.equals( map2.values().stream().min(Comparator.comparing(y -> y.getRating())).get().getId())).findFirst().get();
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		
 }

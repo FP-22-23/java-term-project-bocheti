@@ -28,8 +28,11 @@ public class TestTweets {
 		testTweetsInADay_stream(LocalDate.of(2016, 06, 25));
 		testMaxNumberOfWords();
 		testNameList();
+		testNBestRatingPerYear(2);
+		testLowestRatedTweetId();
 		
 		
+		//testMostRTdTweetPerName();
 		//testTweetsPerYearByLikes(2016);
 		//testTweetsPerName();
 	}
@@ -86,7 +89,16 @@ public class TestTweets {
 		System.out.println("These are all of the names in the dataset: " + tweets.nameList());
 	} 
 	
+	private static void testMostRTdTweetPerName() {
+		System.out.println("Most liked tweet per name: " + tweets.mostRTdTweetPerName());
+	}
 	
+	private static void testNBestRatingPerYear(Integer n) {
+		System.out.println("The tweets with best rating per year are: " + tweets.nBestRatingPerYear(n));
+	}
 	
+	private static void testLowestRatedTweetId() {
+		System.out.println("The Id of the tweet with the lowest rating is: " + tweets.lowestRatedTweetId());
+	}
 
 }

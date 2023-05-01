@@ -45,7 +45,6 @@ Each dataset row collects information about a different one between the two thou
     - Created factory with the following methods:
         - *Tweet parseLine(String line)*: Reads a String, which is a line of the csv file, and generates from it a Tweet object.
         - *Tweets read(String fileName)*: Reads a csv file and, using the parseLine method, transforms it into a Tweets object.
-
     - Created the container type Tweets, with the following methods:
         - Constructors *Tweets(List<Tweet>)* and *Tweets()*: Create new Tweets object (one with a list of tweets, the other one with its tweets attribute as an empty list).
         - *String toString():* Returns a String that shows the contents of the List<Tweet> tweets attribute of a Tweets object (mainly implemented to simplify testing).
@@ -58,7 +57,6 @@ Each dataset row collects information about a different one between the two thou
         - *Tweets tweetsInADay(LocalDate day)*: Returns a Tweets object that contains all Tweet object from the csv whose date (obtained with its datetime attribute) coincides with a LocalDate given as a parameter.
         - *Map<String,List<Tweet>> tweetsPerName()*: Returns a Map in which the keys are the names of the dogs, and the values are a list of the Tweet object whose attribute name coincides with each key.
         - *Map<dogFame,Integer> tweetsPerFame()*: Returns a Map in which the keys are the five different "types of fame" that the enum type dogFame accepts (in natural order), and the value is the amount of Tweet objects whose (derived) dogFame attribute coincide with each key.
-
     - Created the test class *TestTweets* , in which all methods perfomring sequential treatments were tested
 
 
@@ -68,10 +66,9 @@ Each dataset row collects information about a different one between the two thou
     - Modified the factory, including the method List<Tweet> readTweets_toList(String fileName), which first creates a list of tweets, and then modifying the Tweets readTweets(String fileName) method, so now all that it does is creating a Tweets object from the List<Tweet> object that the previous method outputs.
     - Added the following methods:
         - Methods Boolean checkName_stream(String name), Double averageLikesByName_stream(String name), Tweets tweetsInADay_stream(LocalDate day) and Map<dogFame,Long> tweetsPerFame_stream() (values of the map are of long type because that is what the Collectors.counting() method returns) all do exactly the same as the methods with same name except the _stream, which were added in the previous delivery, but have been implemented with streams.
-        - Tweet maxNumberOfWords(): returns the tweet with the greatest number of individual words (not necessarily unique).
-        - Tweets tweetsPerYearByLikes(Integer year): returns a Tweets object with all tweets tweeted in the year given as a parameter, sorted by their amount of likes. 
-        - SortedSet<String> nameList(): returns a set with all the names in the dataset, sorted alphabetically.
-
-
-
-    
+        - *Tweet maxNumberOfWords()*: returns the tweet with the greatest number of individual words (not necessarily unique).
+        - *Tweets tweetsPerYearByLikes(Integer year)*: returns a Tweets object with all tweets tweeted in the year given as a parameter, sorted by their amount of likes. 
+        - *SortedSet<String> nameList()*: returns a set with all the names in the dataset, sorted alphabetically.
+        - *Map<String,Tweet> mostRTdTweetPerName()*: returns a Map in which the keys are the names in the dataset, and the value is the most retweeted tweet whose name coincides with the key.
+        - *SortedMap<Integer,List<Tweet>> nBestRatingPerYear(Integer n)*: returns a SortedMap in which the keys are all the years that the dataset has information of (in increasing order), and the value is a list that contains the n Tweet objects with more retweets.
+    - Added all necessary test methods to test the implemented methods in the class *TestTweets*.

@@ -55,6 +55,10 @@ public class Tweet implements Comparable<Tweet>{
 	public Integer getFavs() {
 		return favs;
 	}
+	
+	public Double getRating() {
+		return rating;
+	}
 
 	public Integer getRts() {
 		return rts;
