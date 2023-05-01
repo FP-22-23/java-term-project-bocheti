@@ -7,19 +7,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import utils.Checkers;
 
 
 public class TweetFactory {
 	
-	public static Tweets readTweets(String fileName) {
-		Tweets tweets = null;
+	public static List<Tweet> readTweets_toList(String fileName) {
+		List<Tweet> tweets = null;
 		
 		try {
 			List<Tweet> tws = Files.lines(Paths.get(fileName)).skip(1).map(TweetFactory::parseLine).toList();
-			tweets = new Tweets(tws);
+			tweets = new ArrayList<>(tws);
 		}catch(IOException e){
 			System.out.println("Error with the file" + fileName);
 			e.printStackTrace();
@@ -28,6 +27,10 @@ public class TweetFactory {
 		
 	}
 	
+	public static Tweets readTweets(String fileName) {
+		Tweets tws = new Tweets(TweetFactory.readTweets_toList(fileName));
+		return tws;
+	}
 	
 	public static Tweet parseLine(String line) {
 		//separate the line using ,
@@ -52,8 +55,7 @@ public class TweetFactory {
 		for (String i:splitted) {
 			wordlist.add(i.replace(".", "").trim());
 		}
-		
-		
+		wordlist.remove(wordlist.size()-1); //removed URL from wordlist
 		//create tweet object
 		Tweet tw = new Tweet(id,favs,rts,timestamp,name,rating,wordlist);
 		return tw;

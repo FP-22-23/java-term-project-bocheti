@@ -2,12 +2,18 @@ package types;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Tweets {
 		
@@ -19,6 +25,10 @@ public class Tweets {
 		
 		public Tweets() {
 			tweets = new ArrayList<Tweet>();
+		}
+		
+		public Tweets(Stream<Tweet> ts) {
+			tweets = ts.collect(Collectors.toList());
 		}
 		
 		public String toString() {
@@ -129,7 +139,59 @@ public class Tweets {
 		
 		
 		
+		//Delivery 3
+		//Part 1
 		
+		//1 exists (with streams)
+		
+		public Boolean checkName_stream(String name) {
+			return tweets.stream().anyMatch(x -> x.getName().equals(name));
+		}
+		
+		//2 average (with streams)
+		
+		public Double averageLikesByName_stream(String name) {
+			return Double.valueOf(tweets.stream().filter(x -> x.getName().equals(name)).mapToInt(x -> x.getFavs()).sum()/tweets.stream().filter(x -> x.getName().equals(name)).count()); 
+		}
+		
+		//3 filter (with streams)
+		
+		public Tweets tweetsInADay_stream(LocalDate day) {
+			return new Tweets(tweets.stream().filter(x -> x.getDatetime().toLocalDate().equals(day)).toList());
+		}
+		
+		//4 max
+		
+		public Tweet maxNumberOfWords() {
+			return tweets.stream().max(Comparator.comparing(x -> x.getWordlist().size())).orElse(null);
+		}
+		
+		//5 filtering + sorted
+		
+		public Tweets tweetsPerYearByLikes(Integer year) {
+			return new Tweets(tweets.stream().filter(x -> Integer.valueOf(x.getDatetime().getYear()).equals(year)).sorted(Comparator.comparing(x -> x.getFavs())).sorted(Comparator.reverseOrder()));
+		}
+		
+		
+		//Part 2
+		
+		//6 method 5 delivery 2 (with streams)
+		
+		public Map<dogFame,Long> tweetsPerFame_stream() {
+			return tweets.stream().collect(Collectors.groupingBy(x->x.getFame(),Collectors.counting()));
+		}
+		
+		//7 mapping
+		
+		public SortedSet<String> nameList(){
+			return new TreeSet<>(tweets.stream().filter(x -> x.getHasName()).collect(Collectors.mapping(x -> x.getName(), Collectors.toSet())));
+		}
+		
+		//8 map using max
+		
+		//public Map<String,List<Tweet>> mostLikedTweetPerName() {
+			
+		//}
 		
 		
 }
