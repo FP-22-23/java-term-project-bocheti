@@ -214,17 +214,7 @@ public class Tweets {
 			for (Id id:map.keySet()) {
 				map2.put(id,map.get(id).stream().min(Comparator.comparing(x -> x.getRating())).orElse(null));
 			}
-			//Tweet tw = map2.values().stream().min(Comparator.comparing(x -> x.getRating())).get();
 			return map2.keySet().stream().filter(x -> x.equals( map2.values().stream().min(Comparator.comparing(y -> y.getRating())).get().getId())).findFirst().get();
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
 }
 

@@ -3,7 +3,7 @@
 
 Author: Salvador Ramón Espinosa Merino
 
-This proyect is intended to analize the data about tweets that the user WeRateDogs (https://twitter.com/dog_rates?s=20) tweeted between November 2015 and August 2017. Said user content consists on funny, wholesome and harmless comments about a dog sent to him by a follower alongside with a picture of the dog and a rating that is normally above the maximum mark. This dataset was downloaded from Kaggle (https://www.kaggle.com/datasets/catherinenewcomb/weratedogs-tweepy-archive) and has been modified to remove the source as it was very redundant having both the url and the expanded one, as well as also removing rating numerator and denominator to just retain the rating value.
+This proyect is intended to analize the data about tweets that the user WeRateDogs (https://twitter.com/dog_rates?s=20) tweeted between November 2015 and August 2017. Said user's content consists on funny, wholesome and harmless comments about a dog sent to him by a follower alongside with a picture of the dog and a rating that is normally above the maximum mark. This dataset was downloaded from Kaggle (https://www.kaggle.com/datasets/catherinenewcomb/weratedogs-tweepy-archive) and has been modified to remove the source as it was very redundant having both the url and the expanded one, as well as also removing rating numerator and denominator to just retain the rating value.
 
 
 ### Structure of the proyect's folders
