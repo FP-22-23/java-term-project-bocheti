@@ -2,9 +2,12 @@ package types;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
@@ -166,7 +169,7 @@ public class Tweets {
 		//5 filtering + sorted
 		
 		public Tweets tweetsPerYearByLikes(Integer year) {
-			return new Tweets(tweets.stream().filter(x -> Integer.valueOf(x.getDatetime().getYear()).equals(year)).sorted(Comparator.comparing(x -> x.getFavs())).sorted(Comparator.reverseOrder()));
+			return new Tweets(tweets.stream().filter(x -> Integer.valueOf(x.getDatetime().getYear()).equals(year)).sorted(Comparator.comparing(Tweet::getFavs)).sorted(Comparator.reverseOrder()));
 		}
 		
 		
@@ -180,41 +183,25 @@ public class Tweets {
 		
 		//7 mapping
 		
-		public SortedSet<String> nameList(){
-			return new TreeSet<>(tweets.stream().filter(x -> x.getHasName()).collect(Collectors.mapping(x -> x.getName(), Collectors.toSet())));
+		public Map<dogFame,Set<String>> namesPerFame(){
+			return tweets.stream().filter(x -> x.getHasName()).collect(Collectors.groupingBy(x -> x.getFame(), Collectors.mapping(t -> t.getName(), Collectors.toSet()))) ;
 		}
 		
 		//8 map using max
 		
 		public Map<String,Tweet> mostRTdTweetPerName() {
-			Map<String,List<Tweet>> map = tweets.stream().filter(x -> x.getHasName()).collect(Collectors.groupingBy(x->x.getName()));
-			Map<String,Tweet> res = new TreeMap<>();
-			for (String name:map.keySet()) {
-				res.put(name,map.get(name).stream().max(Comparator.comparing(x -> x.getRts())).orElse(null));
-			}
-			return res;
+			return tweets.stream().filter(x -> x.getHasName()).collect(Collectors.toMap(x -> x.getName(), x -> x, (t1,t2) -> Collections.max(List.of(t1,t2),Comparator.comparing(Tweet::getRts))));                 
 		} 
 		
 		//9 sortedMap 
 		
-		public SortedMap<Integer,List<Tweet>> nBestRatingPerYear(Integer n) {
-			Map<Integer,List<Tweet>> map = tweets.stream().collect(Collectors.groupingBy(x->Integer.valueOf(x.getDatetime().getYear())));
-			SortedMap<Integer,List<Tweet>> res = new TreeMap<>();
-			for (Integer y:map.keySet()) {
-				res.put(y,map.get(y).stream().sorted(Comparator.comparing(x -> x.getRating())).toList().subList(0, n));
-			}
-			return res;
-		} 
-		
+		public Map<Integer,List<Tweet>> nBestRatingPerYear(Integer n) {
+			return tweets.stream().collect(Collectors.groupingBy(x -> x.getDatetime().getYear(),TreeMap::new,Collectors.collectingAndThen(Collectors.toList(),x -> x.stream().sorted(Comparator.comparing(Tweet::getRating).reversed()).limit(n).collect(Collectors.toList()))));
+		}
 		//10 lowest from map
 		
 		public Id lowestRatedTweetId() {
-			Map<Id,List<Tweet>> map = tweets.stream().filter(x -> x.getHasName()).collect(Collectors.groupingBy(x->x.getId()));
-			Map<Id,Tweet> map2 = new TreeMap<>();
-			for (Id id:map.keySet()) {
-				map2.put(id,map.get(id).stream().min(Comparator.comparing(x -> x.getRating())).orElse(null));
-			}
-			return map2.keySet().stream().filter(x -> x.equals( map2.values().stream().min(Comparator.comparing(y -> y.getRating())).get().getId())).findFirst().get();
+			return tweets.stream().collect(Collectors.toMap(x -> x.getId(), x -> x.getRating())).entrySet().stream().min(Comparator.comparing(Entry::getValue)).orElse(null).getKey();
 		}
 }
 

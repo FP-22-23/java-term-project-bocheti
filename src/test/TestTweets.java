@@ -1,10 +1,6 @@
 package test;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-
-import types.Tweet;
 import types.TweetFactory;
 import types.Tweets;
 
@@ -27,10 +23,11 @@ public class TestTweets {
 		testTweetsInADay(LocalDate.of(2016, 06, 25));
 		testTweetsInADay_stream(LocalDate.of(2016, 06, 25));
 		testMaxNumberOfWords();
-		testNameList();
+		testNamesPerFame();
 		testNBestRatingPerYear(2);
 		testLowestRatedTweetId();
 		
+		//Test separatedly (too long returns)
 		
 		//testMostRTdTweetPerName();
 		//testTweetsPerYearByLikes(2016);
@@ -85,8 +82,8 @@ public class TestTweets {
 		System.out.println(tweets.tweetsPerFame_stream());
 	}
 	
-	private static void testNameList() {
-		System.out.println("These are all of the names in the dataset: " + tweets.nameList());
+	private static void testNamesPerFame() {
+		System.out.println("These are all of the names in the dataset per fame: " + tweets.namesPerFame());
 	} 
 	
 	private static void testMostRTdTweetPerName() {
